@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <zhou.example.com.quickmacro.Tipmenu
+        android:id="@+id/tipments"
+        android:layout_width="400dp"
+        android:layout_height="400dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/composer_button"
+            android:scaleType="center"
+            android:src="@mipmap/composer_icn_plus" />
+
+        <Button
+            android:id="@+id/record_click"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/tip_selector"
+            android:scaleType="center"
+            android:text="点击"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/record_left"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/tip_selector"
+            android:scaleType="center"
+            android:text="左滑"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/record_right"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/tip_selector"
+            android:scaleType="center"
+            android:text="右滑"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/finish"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/tip_selector"
+            android:scaleType="center"
+            android:text="完成"
+            android:textSize="15sp" />
+
+    </zhou.example.com.quickmacro.Tipmenu>
+</LinearLayout>

@@ -35,13 +35,23 @@ public class RecordingService extends Service {
     /**
      * 执行shell命令
      *
-     * @param cmd
+     * @param record
      */
     private Process process = null;
 
     private void execShellCmd(String record) {
         // 申请获取root权限，这一步很重要，不然会没有作用
         try {
+//           左滑命令
+//            record = "input swipe 0 700 360 700\nsleep 2\n input swipe 0 700 360 700\n" +
+//                    "sleep 2\n" +
+//                    " input swipe 0 700 360 700\n" +
+//                    "sleep 2\n" +
+//                    " input swipe 0 700 360 700\n" +
+//                    "sleep 2\n" +
+//                    " input swipe 0 700 360 700\n" +
+//                    "sleep 2\n" +
+//                    " ";
             process = Runtime.getRuntime().exec("su");
             // 获取输出流
             outputStream = process.getOutputStream();

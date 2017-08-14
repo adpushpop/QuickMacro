@@ -1,10 +1,8 @@
 package zhou.example.com.quickmacro;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,13 +14,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button bt_1 = (Button) findViewById(R.id.bt_1);
+        Button bt_2 = (Button) findViewById(R.id.bt_2);
         bt_1.setOnClickListener(this);
-    }
-
-    private void initShell() {
-        SharedPreferences mysf = getSharedPreferences("shell", Activity.MODE_PRIVATE);
-        String cmds = mysf.getString("cmds", "");
-
+        bt_2.setOnClickListener(this);
     }
 
     @Override
@@ -34,6 +28,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startService(intent);
                 startAPP();
                 break;
+            case R.id.bt_2:
+                intent = new Intent(MainActivity.this, SaveService.class);
+                SPutils.putString(MainActivity.this.getApplicationContext(), Contant.RECORD, "");
+                startService(intent);
         }
     }
 

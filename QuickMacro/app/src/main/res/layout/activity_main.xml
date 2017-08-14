@@ -4,6 +4,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="zhou.example.com.quickmacro.MainActivity">
 
 
@@ -12,4 +13,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="脚本回放" />
+
+    <Button
+        android:id="@+id/bt_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="脚本录制" />
 </LinearLayout>
