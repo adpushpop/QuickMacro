@@ -45,21 +45,13 @@ public class SaveService extends Service {
         // WindowManager可以向屏幕添加一个控件, 需要知道控件如何摆放和一些其他属性 所以需要LayoutParams
         // 参见Toast中的TN源码
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-        params.height = WindowManager.LayoutParams.MATCH_PARENT; // 高
-        params.width = WindowManager.LayoutParams.MATCH_PARENT; // 宽
-        params.format = PixelFormat.TRANSLUCENT; // 半透明
-        // 需要权限android.permission.SYSTEM_ALERT_WINDOW
-        params.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;// TYPE_PRIORITY_PHONE:优先于通话界面
-        // WindowManager.LayoutParams.TYPE_TOAST;
-        // //Toast类型
-
-        params.flags = WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON // 屏幕常量
-                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE; // 不可获取焦点
-        // | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE; //不可摸
-
+        params.height = WindowManager.LayoutParams.MATCH_PARENT;
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+        params.format = PixelFormat.TRANSLUCENT;
+        params.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;
+        params.flags = WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         sore = View.inflate(SaveService.this, R.layout.tip, null);
-
-        // 添加View到窗口上
         wm.addView(sore, params);
         sore.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
