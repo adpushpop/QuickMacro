@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(MainActivity.this, SaveService.class);
                 SPutils.putString(MainActivity.this.getApplicationContext(), Contant.RECORD, "");
                 startService(intent);
+                startAPP();
         }
     }
 

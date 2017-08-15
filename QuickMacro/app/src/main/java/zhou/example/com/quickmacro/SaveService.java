@@ -10,11 +10,18 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 public class SaveService extends Service {
     private WindowManager wm;
     private View sore;
     private Handler handler = new Handler();
+    private OutputStream outputStream;
+    private DataOutputStream dataOutputStream;
 
 
     @Override
@@ -62,12 +69,14 @@ public class SaveService extends Service {
                 stopService(intent);
                 stopService(intent1);
                 wm.removeView(sore);
+                Toast.makeText(SaveService.this.getApplicationContext(), "脚本录制完成", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
         sore.setOnTouchListener(new View.OnTouchListener() {
             private int downX;
             private int downY;
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -92,10 +101,12 @@ public class SaveService extends Service {
                             tap = tap + "input tap " + moveX + " " + moveY +
                                     "\n sleep 2 \n";
                             SPutils.putString(SaveService.this.getApplicationContext(), Contant.RECORD, tap);
+                            execShellCmd("input tap " + moveX + " " + moveY + "\n sleep 2 \n");
                         } else {
                             String swap = SPutils.getString(SaveService.this.getApplicationContext(), Contant.RECORD);
                             swap = swap + "input swipe " + downX + " " + downY + " " + moveX + " " + moveY + " " + "  \n sleep 2 \n ";
                             SPutils.putString(SaveService.this.getApplicationContext(), Contant.RECORD, swap);
+                            execShellCmd("input swipe " + downX + " " + downY + " " + moveX + " " + moveY);
                         }
                         wm.removeView(sore);
                         handler.postDelayed(new Runnable() {
@@ -118,4 +129,32 @@ public class SaveService extends Service {
         });
     }
 
+    private Process process = null;
+
+    private void execShellCmd(String record) {
+        // 申请获取root权限，这一步很重要，不然会没有作用
+        try {
+//           左滑命令
+//            record = "input swipe 0 700 360 700\nsleep 2\n input swipe 0 700 360 700\n" +
+//                    "sleep 2\n" +
+//                    " input swipe 0 700 360 700\n" +
+//                    "sleep 2\n" +
+//                    " input swipe 0 700 360 700\n" +
+//                    "sleep 2\n" +
+//                    " input swipe 0 700 360 700\n" +
+//                    "sleep 2\n" +
+//                    " ";
+            process = Runtime.getRuntime().exec("su");
+            // 获取输出流
+            outputStream = process.getOutputStream();
+            dataOutputStream = new DataOutputStream(outputStream);
+            dataOutputStream.writeBytes(record);
+            dataOutputStream.flush();
+            dataOutputStream.close();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "脚本执行失败，请检查root！", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
